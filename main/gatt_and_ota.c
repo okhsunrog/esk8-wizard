@@ -6,7 +6,7 @@
 
 
 uint8_t gatt_svr_chr_ota_control_val;
-uint8_t gatt_svr_chr_ota_data_val[512];
+uint8_t gatt_svr_chr_ota_data_val[520];
 
 uint16_t ota_control_val_handle;
 uint16_t ota_data_val_handle;

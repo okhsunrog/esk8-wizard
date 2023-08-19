@@ -130,6 +130,6 @@ void ble_setup() {
 
     // set device name and start host task
     ble_svc_gap_device_name_set(device_name);
-    ble_att_set_preferred_mtu(512);
+    ble_att_set_preferred_mtu(520);
     nimble_port_freertos_init(host_task);
 }
