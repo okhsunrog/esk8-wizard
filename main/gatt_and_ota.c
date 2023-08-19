@@ -31,8 +31,35 @@ static int gatt_svr_chr_ota_data_cb(uint16_t conn_handle, uint16_t attr_handle,
                                     struct ble_gatt_access_ctxt *ctxt,
                                     void *arg);
 
+static int gatt_svr_chr_vesc_cb(uint16_t conn_handle, uint16_t attr_handle,
+                                    struct ble_gatt_access_ctxt *ctxt,
+                                    void *arg);
 
 static const struct ble_gatt_svc_def gatt_svr_svcs[] = {
+        {
+                // service: VESC Service
+                .type = BLE_GATT_SVC_TYPE_PRIMARY,
+                .uuid = &gatt_svr_svc_vesc_uuid.u,
+                .characteristics =
+                (struct ble_gatt_chr_def[]){
+                        {
+                                // VESC Characteristic RX
+                                .uuid = &gatt_svr_chr_vesc_rx_uuid.u,
+                                .access_cb = gatt_svr_chr_vesc_cb,
+                                .flags = BLE_GATT_CHR_F_WRITE,
+                                .val_handle = &ota_control_val_handle,
+                        },
+                        {
+                                // VESC Characteristic TX
+                                .uuid = &gatt_svr_chr_vesc_tx_uuid.u,
+                                .access_cb = gatt_svr_chr_vesc_cb,
+                                .flags = BLE_GATT_CHR_F_READ | BLE_GATT_CHR_F_NOTIFY,
+                                .val_handle = &ota_data_val_handle,
+                        },
+                        {
+                                0, /* No more characteristics in this service */
+                        }},
+        },
         {
                 // service: OTA Service
                 .type = BLE_GATT_SVC_TYPE_PRIMARY,
@@ -58,7 +85,6 @@ static const struct ble_gatt_svc_def gatt_svr_svcs[] = {
                                 0, /* No more characteristics in this service */
                         }},
         },
-
         {
                 0, /* No more services */
         },
@@ -229,6 +255,15 @@ static int gatt_svr_chr_ota_data_cb(uint16_t conn_handle, uint16_t attr_handle,
 
     return rc;
 }
+
+
+static int gatt_svr_chr_vesc_cb(uint16_t conn_handle, uint16_t attr_handle,
+                                    struct ble_gatt_access_ctxt *ctxt,
+                                    void *arg) {
+    int rc = 0;
+    return rc;
+}
+
 
 void gatt_svr_init() {
     ble_svc_gap_init();

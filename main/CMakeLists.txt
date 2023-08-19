@@ -7,6 +7,7 @@ set(COMPONENT_SRCS
         "nvs_stuff.c"
         "gap.c"
         "gatt_and_ota.c"
+        "led_strip.c"
 )
 
 set(COMPONENT_ADD_INCLUDEDIRS
