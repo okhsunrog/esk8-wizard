@@ -14,26 +14,43 @@ int gap_event_handler(struct ble_gap_event *event, void *arg);
 
 void advertise() {
     struct ble_gap_adv_params adv_params;
-    struct ble_hs_adv_fields fields;
+    struct ble_hs_adv_fields adv_data, scan_data;
     int rc;
 
-    memset(&fields, 0, sizeof(fields));
+    memset(&adv_data, 0, sizeof(adv_data));
+    memset(&scan_data, 0, sizeof(scan_data));
 
     // flags: discoverability + BLE only
-    fields.flags = BLE_HS_ADV_F_DISC_GEN | BLE_HS_ADV_F_BREDR_UNSUP;
+    adv_data.flags = BLE_HS_ADV_F_DISC_GEN | BLE_HS_ADV_F_BREDR_UNSUP;
+
+    //not sure if needed
+    adv_data.appearance = 0;
+    adv_data.appearance_is_present = 1;
 
     // include power levels
-    fields.tx_pwr_lvl_is_present = 1;
-    fields.tx_pwr_lvl = BLE_HS_ADV_TX_PWR_LVL_AUTO;
+    adv_data.tx_pwr_lvl_is_present = 1;
+    adv_data.tx_pwr_lvl = BLE_HS_ADV_TX_PWR_LVL_AUTO;
 
-    // include device name
-    fields.name = (uint8_t *)device_name;
-    fields.name_len = strlen(device_name);
-    fields.name_is_complete = 1;
+    //advertise VESC service UUID, needed for VESC Tool
+    adv_data.uuids128 = &gatt_svr_svc_vesc_uuid;
+    adv_data.num_uuids128  = 1;
+    adv_data.uuids128_is_complete = 1;
 
-    rc = ble_gap_adv_set_fields(&fields);
+    // include in scan response to allow for longer names
+    scan_data.name = (uint8_t *)device_name;
+    scan_data.name_len = strlen(device_name);
+    scan_data.name_is_complete = 1;
+
+
+    rc = ble_gap_adv_set_fields(&adv_data);
     if (rc != 0) {
         ESP_LOGE(LOG_TAG, "Error setting advertisement data: rc=%d", rc);
+        return;
+    }
+
+    rc = ble_gap_adv_rsp_set_fields(&scan_data);
+    if (rc != 0) {
+        ESP_LOGE(LOG_TAG, "Error setting scan response data: rc=%d", rc);
         return;
     }
 
