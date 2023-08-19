@@ -1,0 +1,18 @@
+//
+// Created by okhsunrog on 8/19/23.
+//
+
+#ifndef MAIN_DATATYPES_H
+#define MAIN_DATATYPES_H
+
+typedef enum {
+    SVR_CHR_OTA_CONTROL_NOP,
+    SVR_CHR_OTA_CONTROL_REQUEST,
+    SVR_CHR_OTA_CONTROL_REQUEST_ACK,
+    SVR_CHR_OTA_CONTROL_REQUEST_NAK,
+    SVR_CHR_OTA_CONTROL_DONE,
+    SVR_CHR_OTA_CONTROL_DONE_ACK,
+    SVR_CHR_OTA_CONTROL_DONE_NAK,
+} svr_chr_ota_control_val_t;
+
+#endif //MAIN_DATATYPES_H

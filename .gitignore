@@ -1,0 +1,7 @@
+.devcontainer
+.vscode
+build
+sdkconfig.old
+dependencies.lock
+.idea/
+cmake-build-debug/
