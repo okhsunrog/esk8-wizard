@@ -8,6 +8,7 @@ set(COMPONENT_SRCS
         "gap.c"
         "gatt_and_ota.c"
         "led_strip.c"
+        "can.c"
 )
 
 set(COMPONENT_ADD_INCLUDEDIRS

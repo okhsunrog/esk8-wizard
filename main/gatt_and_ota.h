@@ -10,7 +10,6 @@
 #include "host/ble_uuid.h"
 #include "services/gap/ble_svc_gap.h"
 #include "services/gatt/ble_svc_gatt.h"
-#include "datatypes.h"
 
 #define REBOOT_DEEP_SLEEP_TIMEOUT 500
 

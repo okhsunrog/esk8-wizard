@@ -3,6 +3,7 @@
 //
 
 #include "gatt_and_ota.h"
+#include "datatypes.h"
 
 
 uint8_t gatt_svr_chr_ota_control_val;
