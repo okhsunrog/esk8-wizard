@@ -8,10 +8,10 @@
 #include "driver/twai.h"
 #include "sdkconfig.h"
 
-//functions
+// functions
 
 void can_init();
 void can_stop();
 void send_command(uint8_t command_id, uint8_t *data4);
 
-#endif //MAIN_CAN_H
+#endif // MAIN_CAN_H

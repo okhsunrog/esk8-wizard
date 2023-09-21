@@ -5,27 +5,28 @@
 #include "can.h"
 #include "esp_log.h"
 
-
 #define VESC_ID 10
 
 static const twai_timing_config_t t_config = TWAI_TIMING_CONFIG_500KBITS();
-static const twai_filter_config_t f_config = {.acceptance_code = 0, .acceptance_mask = 0, .single_filter = true};
-static const twai_general_config_t g_config = TWAI_GENERAL_CONFIG_DEFAULT(CONFIG_CAN_TX_GPIO, CONFIG_CAN_RX_GPIO, TWAI_MODE_NORMAL);
+static const twai_filter_config_t f_config = {
+    .acceptance_code = 0, .acceptance_mask = 0, .single_filter = true};
+static const twai_general_config_t g_config = TWAI_GENERAL_CONFIG_DEFAULT(
+    CONFIG_CAN_TX_GPIO, CONFIG_CAN_RX_GPIO, TWAI_MODE_NORMAL);
 
 static const char *LOG_TAG = "can";
 
 void can_init() {
-    //Install CAN driver
+    // Install CAN driver
     ESP_ERROR_CHECK(twai_driver_install(&g_config, &t_config, &f_config));
     ESP_LOGI(LOG_TAG, "CAN driver installed");
 
-    //Start CAN driver
+    // Start CAN driver
     ESP_ERROR_CHECK(twai_start());
     ESP_LOGI(LOG_TAG, "CAN driver started");
 }
 
 void can_stop() {
-    //stop and uninstall twai driver to change hardware filters
+    // stop and uninstall twai driver to change hardware filters
     ESP_ERROR_CHECK(twai_stop());
     ESP_ERROR_CHECK(twai_driver_uninstall());
 }

@@ -83,4 +83,4 @@ typedef enum {
     CAN_PACKET_MAKE_ENUM_32_BITS = 0xFFFFFFFF,
 } CAN_PACKET_ID;
 
-#endif //MAIN_DATATYPES_H
+#endif // MAIN_DATATYPES_H

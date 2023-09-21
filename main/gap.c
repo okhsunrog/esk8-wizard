@@ -23,7 +23,7 @@ void advertise() {
     // flags: discoverability + BLE only
     adv_data.flags = BLE_HS_ADV_F_DISC_GEN | BLE_HS_ADV_F_BREDR_UNSUP;
 
-    //not sure if needed
+    // not sure if needed
     adv_data.appearance = 0;
     adv_data.appearance_is_present = 1;
 
@@ -31,16 +31,15 @@ void advertise() {
     adv_data.tx_pwr_lvl_is_present = 1;
     adv_data.tx_pwr_lvl = BLE_HS_ADV_TX_PWR_LVL_AUTO;
 
-    //advertise VESC service UUID, needed for VESC Tool
+    // advertise VESC service UUID, needed for VESC Tool
     adv_data.uuids128 = &gatt_svr_svc_vesc_uuid;
-    adv_data.num_uuids128  = 1;
+    adv_data.num_uuids128 = 1;
     adv_data.uuids128_is_complete = 1;
 
     // include in scan response to allow for longer names
     scan_data.name = (uint8_t *)device_name;
     scan_data.name_len = strlen(device_name);
     scan_data.name_is_complete = 1;
-
 
     rc = ble_gap_adv_set_fields(&adv_data);
     if (rc != 0) {
@@ -81,42 +80,42 @@ void sync_cb(void) {
 int gap_event_handler(struct ble_gap_event *event, void *arg) {
     int rc;
     const struct ble_gap_upd_params con_upd_strct = {
-            .itvl_max = 8,
-            .itvl_min = 6,
-            .latency = 0,
-            .supervision_timeout = 400,
-            .min_ce_len = BLE_GAP_INITIAL_CONN_MIN_CE_LEN,
-            .max_ce_len = BLE_GAP_INITIAL_CONN_MAX_CE_LEN,
+        .itvl_max = 8,
+        .itvl_min = 6,
+        .latency = 0,
+        .supervision_timeout = 400,
+        .min_ce_len = BLE_GAP_INITIAL_CONN_MIN_CE_LEN,
+        .max_ce_len = BLE_GAP_INITIAL_CONN_MAX_CE_LEN,
     };
     switch (event->type) {
-        case BLE_GAP_EVENT_CONNECT:
-            // A new connection was established or a connection attempt failed
-            rc = ble_gap_update_params(event->connect.conn_handle, &con_upd_strct);
-            ESP_LOGW(LOG_TAG, "upd rc: %d", rc);
-            break;
+    case BLE_GAP_EVENT_CONNECT:
+        // A new connection was established or a connection attempt failed
+        rc = ble_gap_update_params(event->connect.conn_handle, &con_upd_strct);
+        ESP_LOGW(LOG_TAG, "upd rc: %d", rc);
+        break;
 
-        case BLE_GAP_EVENT_DISCONNECT:
-            ESP_LOGI(LOG_TAG, "GAP: Disconnect: reason=%d\n",
-                     event->disconnect.reason);
+    case BLE_GAP_EVENT_DISCONNECT:
+        ESP_LOGI(LOG_TAG, "GAP: Disconnect: reason=%d\n",
+                 event->disconnect.reason);
 
-            // Connection terminated; resume advertising
-            advertise();
-            break;
+        // Connection terminated; resume advertising
+        advertise();
+        break;
 
-        case BLE_GAP_EVENT_ADV_COMPLETE:
-            ESP_LOGI(LOG_TAG, "GAP: adv complete");
-            advertise();
-            break;
+    case BLE_GAP_EVENT_ADV_COMPLETE:
+        ESP_LOGI(LOG_TAG, "GAP: adv complete");
+        advertise();
+        break;
 
-        case BLE_GAP_EVENT_SUBSCRIBE:
-            ESP_LOGI(LOG_TAG, "GAP: Subscribe: conn_handle=%d",
-                     event->connect.conn_handle);
-            break;
+    case BLE_GAP_EVENT_SUBSCRIBE:
+        ESP_LOGI(LOG_TAG, "GAP: Subscribe: conn_handle=%d",
+                 event->connect.conn_handle);
+        break;
 
-        case BLE_GAP_EVENT_MTU:
-            ESP_LOGI(LOG_TAG, "GAP: MTU update: conn_handle=%d, mtu=%d",
-                     event->mtu.conn_handle, event->mtu.value);
-            break;
+    case BLE_GAP_EVENT_MTU:
+        ESP_LOGI(LOG_TAG, "GAP: MTU update: conn_handle=%d, mtu=%d",
+                 event->mtu.conn_handle, event->mtu.value);
+        break;
     }
 
     return 0;

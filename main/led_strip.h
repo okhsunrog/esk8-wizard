@@ -5,8 +5,8 @@
 #ifndef MAIN_LED_STRIP_H
 #define MAIN_LED_STRIP_H
 
-//functions
+// functions
 
 _Noreturn void led_strip_task(void *arg);
 
-#endif //MAIN_LED_STRIP_H
+#endif // MAIN_LED_STRIP_H

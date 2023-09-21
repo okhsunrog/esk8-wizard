@@ -7,8 +7,8 @@
 
 #include "inttypes.h"
 
-//functions
+// functions
 
 void setup_nvs();
 
-#endif //MAIN_NVS_STUFF_H
+#endif // MAIN_NVS_STUFF_H
