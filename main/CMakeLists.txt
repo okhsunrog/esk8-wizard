@@ -2,13 +2,13 @@ set(COMPONENT_REQUIRES )
 set(COMPONENT_PRIV_REQUIRES )
 
 set(COMPONENT_SRCS
-        "main.c"
-        "utils.c"
-        "nvs_stuff.c"
-        "gap.c"
-        "gatt_and_ota.c"
-        "led_strip.c"
-        "can.c"
+        "main.cpp"
+        # "utils.cpp"
+        # "nvs_stuff.cpp"
+        # "gap.cpp"
+        # "gatt_and_ota.cpp"
+        # "led_strip.cpp"
+        # "can.cpp"
 )
 
 set(COMPONENT_ADD_INCLUDEDIRS
