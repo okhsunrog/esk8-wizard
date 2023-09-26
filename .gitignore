@@ -6,3 +6,4 @@ dependencies.lock
 .idea/
 cmake-build-debug/
 .cache/
+managed_components/

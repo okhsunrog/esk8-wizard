@@ -8,7 +8,7 @@ set(COMPONENT_SRCS
         # "gap.cpp"
         # "gatt_and_ota.cpp"
         "led_strip.cpp"
-        # "can.cpp"
+        "can.cpp"
 )
 
 set(COMPONENT_ADD_INCLUDEDIRS
