@@ -47,6 +47,5 @@ void app_main(void) {
 
     // xTaskCreate(remote_task, "remote_tsk", 4096, NULL, REMOTE_TSK_PRIORITY,
     // NULL);
-    //  xTaskCreate(led_strip_task, "led_tsk", 4096, NULL, LED_TSK_PRIORITY,
-    //  NULL);
+    xTaskCreate(led_strip_task, "led_tsk", 4096, NULL, LED_TSK_PRIORITY, NULL);
 }
