@@ -5,11 +5,11 @@
 #include <freertos/task.h>
 // #include "gap.h"
 // #include "gatt_and_ota.h"
-// #include "led_strip.h"
+#include "led_strip.h"
 // #include "nvs_stuff.h"
 // #include <stdio.h>
 
-// #define LED_TSK_PRIORITY 15
+#define LED_TSK_PRIORITY 15
 // #define REMOTE_TSK_PRIORITY 10
 
 static const char *LOG_TAG = "main";
@@ -47,7 +47,6 @@ extern "C" void app_main(void) {
 
     // xTaskCreate(remote_task, "remote_tsk", 4096, NULL, REMOTE_TSK_PRIORITY,
     // NULL);
-    // xTaskCreate(led_strip_task, "led_tsk", 4096, NULL, LED_TSK_PRIORITY,
-    // NULL);
+    xTaskCreate(led_strip_task, "led_tsk", 4096, NULL, LED_TSK_PRIORITY, NULL);
     ESP_LOGI(LOG_TAG, "Started!");
 }
