@@ -5,8 +5,8 @@ set(COMPONENT_SRCS
         "main.cpp"
         "utils.cpp"
         "nvs_stuff.cpp"
-        # "gap.cpp"
-        # "gatt_and_ota.cpp"
+        "gap.cpp"
+        "gatt_and_ota.cpp"
         "led_strip.cpp"
         "can.cpp"
 )

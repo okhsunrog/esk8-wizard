@@ -80,8 +80,8 @@ void sync_cb(void) {
 int gap_event_handler(struct ble_gap_event *event, void *arg) {
     int rc;
     const struct ble_gap_upd_params con_upd_strct = {
-        .itvl_max = 8,
         .itvl_min = 6,
+        .itvl_max = 8,
         .latency = 0,
         .supervision_timeout = 400,
         .min_ce_len = BLE_GAP_INITIAL_CONN_MIN_CE_LEN,
