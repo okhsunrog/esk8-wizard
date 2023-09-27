@@ -8,6 +8,7 @@
 #include "esp_ws28xx.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "sync.h"
 
 #define NUM_LEDS 30
 static const char *LOG_TAG = "led";

@@ -4,10 +4,10 @@
 #include "gatt_and_ota.h"
 #include "led_strip.h"
 #include "nvs_stuff.h"
+#include "sync.h"
 #include <esp_log.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
-// #include <stdio.h>
 
 #define LED_TSK_PRIORITY 15
 // #define REMOTE_TSK_PRIORITY 10
@@ -40,6 +40,8 @@ static const char *LOG_TAG = "main";
 // }
 
 extern "C" void app_main(void) {
+    // Init sync primitives
+    led_control_queue = xQueueCreate(1, sizeof(uint8_t));
     check_running_partition();
     // can_init();
     setup_nvs();

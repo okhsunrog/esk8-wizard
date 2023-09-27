@@ -5,6 +5,8 @@
 #ifndef MAIN_DATATYPES_H
 #define MAIN_DATATYPES_H
 
+#include "inttypes.h"
+
 typedef enum {
     SVR_CHR_OTA_CONTROL_NOP,
     SVR_CHR_OTA_CONTROL_REQUEST,

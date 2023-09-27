@@ -4,6 +4,7 @@
 
 #include "gatt_and_ota.h"
 #include "datatypes.h"
+#include "sync.h"
 #include <stdint.h>
 
 uint8_t gatt_svr_chr_ota_control_val;
@@ -290,6 +291,7 @@ static int gatt_svr_chr_remote_cb(uint16_t conn_handle, uint16_t attr_handle,
     rc = gatt_svr_chr_write(ctxt->om, 1, sizeof(led_control_value),
                             &led_control_value, NULL);
     ESP_LOGI(LOG_TAG, "Received some led data: %d", led_control_value);
+    xQueueOverwrite(led_control_queue, (void *)&led_control_value);
     return rc;
 }
 
@@ -302,7 +304,7 @@ void gatt_svr_init() {
 
 void check_running_partition() {
     const esp_partition_t *partition = esp_ota_get_running_partition();
-    ESP_LOGI(LOG_TAG, "the partition address is: %lX", partition->address);
+    ESP_LOGI(LOG_TAG, "the partition address is: %" PRIu32, partition->address);
     switch (partition->address) {
     case 0x00020000:
         ESP_LOGI(LOG_TAG, "Running partition: ota_0");
