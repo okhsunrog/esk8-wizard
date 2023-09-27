@@ -17,6 +17,13 @@ typedef enum {
     SVR_CHR_OTA_CONTROL_DONE_NAK,
 } svr_chr_ota_control_val_t;
 
+typedef enum {
+    LEDEF_OFF = 0,
+    LEDEF_PACIFICA = 1,
+    LEDEF_FIRE = 2,
+    LEDEF_WHITE = 3,
+} led_effect_sides_t;
+
 // CAN commands
 typedef enum {
     CAN_PACKET_SET_DUTY = 0,

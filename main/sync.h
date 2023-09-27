@@ -5,6 +5,6 @@
 #include "freertos/queue.h"
 #include "freertos/semphr.h"
 
-static QueueHandle_t led_control_queue;
+extern QueueHandle_t led_control_queue;
 
 #endif // MAIN_SYNC_H

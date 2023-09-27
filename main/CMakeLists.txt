@@ -9,6 +9,7 @@ set(COMPONENT_SRCS
         "gatt_and_ota.cpp"
         "led_strip.cpp"
         "can.cpp"
+        "sync.cpp"
 )
 
 set(COMPONENT_ADD_INCLUDEDIRS

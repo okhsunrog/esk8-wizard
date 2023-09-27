@@ -4,6 +4,7 @@
 
 #include "led_strip.h"
 #include "FastLED.h"
+#include "datatypes.h"
 #include "esp_log.h"
 #include "esp_ws28xx.h"
 #include "freertos/FreeRTOS.h"
@@ -114,15 +115,57 @@ void pacifica_loop() {
 }
 
 void led_strip_task(void *arg) {
+    led_effect_sides_t led_eff_sides = LEDEF_OFF;
+    uint8_t led_control_command;
+    static const TickType_t pacifica_delay = 20 / portTICK_PERIOD_MS;
+    TickType_t ticks_to_wait = pacifica_delay;
     // Init LED strip
-    uint freeRAM = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
-    ESP_LOGI(LOG_TAG, "free RAM is %d.", freeRAM);
     ESP_ERROR_CHECK(ws28xx_init(CONFIG_LED_STRIP_GPIO, WS2815, NUM_LEDS, leds));
     // ws28xx_set_brightness(170);
     // ws28xx_apply_color_cor(true);
     for (;;) {
-        pacifica_loop();
+        switch (led_eff_sides) {
+        case LEDEF_OFF:
+            ticks_to_wait = portMAX_DELAY;
+            fill_solid(leds, NUM_LEDS, CRGB(0, 0, 0));
+            break;
+        case LEDEF_PACIFICA:
+            ticks_to_wait = pacifica_delay;
+            pacifica_loop();
+            break;
+        case LEDEF_FIRE:
+            ticks_to_wait = pacifica_delay;
+            break;
+        case LEDEF_WHITE:
+            ticks_to_wait = portMAX_DELAY;
+            fill_solid(leds, NUM_LEDS, CRGB(255, 255, 255));
+            break;
+        }
+
         ESP_ERROR_CHECK(ws28xx_update());
-        vTaskDelay(20 / portTICK_PERIOD_MS);
+        if (xQueueReceive(led_control_queue, &led_control_command,
+                          ticks_to_wait) == pdPASS) {
+            switch (led_control_command) {
+            case 48:
+                led_eff_sides = LEDEF_OFF;
+                break;
+            case 49:
+                led_eff_sides = LEDEF_PACIFICA;
+                break;
+            case 50:
+                led_eff_sides = LEDEF_FIRE;
+                break;
+            case 51:
+                led_eff_sides = LEDEF_WHITE;
+                break;
+            case 52:
+                break;
+            case 53:
+                break;
+            default:
+                ESP_LOGW(LOG_TAG, "Unknown led command!");
+                break;
+            }
+        }
     }
 }
