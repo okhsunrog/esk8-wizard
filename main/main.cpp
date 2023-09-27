@@ -1,4 +1,4 @@
-// #include "can.h"
+#include "can.h"
 #include "datatypes.h"
 #include "gap.h"
 #include "gatt_and_ota.h"
@@ -43,7 +43,7 @@ extern "C" void app_main(void) {
     // Init sync primitives
     led_control_queue = xQueueCreate(1, sizeof(uint8_t));
     check_running_partition();
-    // can_init();
+    can_init();
     setup_nvs();
     ble_setup();
 

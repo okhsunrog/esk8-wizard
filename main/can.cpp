@@ -5,13 +5,14 @@
 #include "can.h"
 #include "esp_log.h"
 
-#define VESC_ID 10
+#define VESC_ID 107
 
 static const twai_timing_config_t t_config = TWAI_TIMING_CONFIG_500KBITS();
 static const twai_filter_config_t f_config = {
     .acceptance_code = 0, .acceptance_mask = 0, .single_filter = true};
 static const twai_general_config_t g_config = TWAI_GENERAL_CONFIG_DEFAULT(
-    (gpio_num_t) CONFIG_CAN_TX_GPIO, (gpio_num_t) CONFIG_CAN_RX_GPIO, TWAI_MODE_NORMAL);
+    (gpio_num_t)CONFIG_CAN_TX_GPIO, (gpio_num_t)CONFIG_CAN_RX_GPIO,
+    TWAI_MODE_NORMAL);
 
 static const char *LOG_TAG = "can";
 
