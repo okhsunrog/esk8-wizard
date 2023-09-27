@@ -118,6 +118,7 @@ void led_strip_task(void *arg) {
     led_effect_sides_t led_eff_sides = LEDEF_OFF;
     uint8_t led_control_command;
     static const TickType_t pacifica_delay = 20 / portTICK_PERIOD_MS;
+    static const TickType_t white_delay = 200 / portTICK_PERIOD_MS;
     TickType_t ticks_to_wait = pacifica_delay;
     // Init LED strip
     ESP_ERROR_CHECK(ws28xx_init(CONFIG_LED_STRIP_GPIO, WS2815, NUM_LEDS, leds));
@@ -137,7 +138,7 @@ void led_strip_task(void *arg) {
             ticks_to_wait = pacifica_delay;
             break;
         case LEDEF_WHITE:
-            ticks_to_wait = portMAX_DELAY;
+            ticks_to_wait = white_delay;
             fill_solid(leds, NUM_LEDS, CRGB(255, 255, 255));
             break;
         }
