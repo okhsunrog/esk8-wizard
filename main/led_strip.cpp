@@ -117,6 +117,8 @@ void led_strip_task(void *arg) {
     uint freeRAM = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
     ESP_LOGI(LOG_TAG, "free RAM is %d.", freeRAM);
     ESP_ERROR_CHECK(ws28xx_init(CONFIG_LED_STRIP_GPIO, WS2815, NUM_LEDS, leds));
+    // ws28xx_set_brightness(170);
+    // ws28xx_apply_color_cor(true);
     for (;;) {
         pacifica_loop();
         ESP_ERROR_CHECK(ws28xx_update());
