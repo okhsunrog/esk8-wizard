@@ -1,12 +1,12 @@
 // #include "can.h"
-// #include "datatypes.h"
+#include "datatypes.h"
+#include "gap.h"
+#include "gatt_and_ota.h"
+#include "led_strip.h"
+#include "nvs_stuff.h"
 #include <esp_log.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
-// #include "gap.h"
-// #include "gatt_and_ota.h"
-#include "led_strip.h"
-// #include "nvs_stuff.h"
 // #include <stdio.h>
 
 #define LED_TSK_PRIORITY 15
@@ -40,10 +40,10 @@ static const char *LOG_TAG = "main";
 // }
 
 extern "C" void app_main(void) {
-    // check_running_partition();
+    check_running_partition();
     // can_init();
-    // setup_nvs();
-    // ble_setup();
+    setup_nvs();
+    ble_setup();
 
     // xTaskCreate(remote_task, "remote_tsk", 4096, NULL, REMOTE_TSK_PRIORITY,
     // NULL);
