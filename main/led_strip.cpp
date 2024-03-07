@@ -11,7 +11,7 @@
 #include "freertos/task.h"
 #include "sync.h"
 
-#define NUM_LEDS 30
+#define NUM_LEDS 116
 static const char *LOG_TAG = "led";
 
 CRGB leds[NUM_LEDS];
